@@ -17,3 +17,12 @@ class UpdateDevicePositionSchema(BaseModel):
 
     longitude: float
     latitude: float
+
+
+class CheckDeviceInCameraSchema(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+    )
+
+    longitude: float
+    latitude: float

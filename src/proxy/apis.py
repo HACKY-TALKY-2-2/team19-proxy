@@ -27,3 +27,7 @@ async def _reverse_proxy(request: Request):
         headers=rp_response.headers,
         background=BackgroundTask(rp_response.aclose),
     )
+
+
+router.add_route("/cameras", _reverse_proxy, ["GET", "POST", "PUT", "PATCH", "DELETE"])
+router.add_route("/reports", _reverse_proxy, ["GET", "POST", "PUT", "PATCH", "DELETE"])

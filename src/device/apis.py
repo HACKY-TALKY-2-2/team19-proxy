@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from src.db import session_scope
-from src.device.repositories import DeviceSQLRepository
-from src.device.schemas import CreateDeviceSchema
+from db import session_scope
+from device.repositories import DeviceSQLRepository
+from device.schemas import CreateDeviceSchema
 
 router = APIRouter()
 

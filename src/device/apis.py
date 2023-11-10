@@ -4,6 +4,7 @@ from db import session_scope
 from device.repositories import DeviceSQLRepository
 from device.schemas import (
     CheckDeviceInCameraSchema,
+    CheckDeviceInReportSchema,
     CreateDeviceSchema,
     UpdateDevicePositionSchema,
 )
@@ -75,6 +76,37 @@ async def check_device_in_camera(
         new_distance = DeviceSQLRepository(
             session=session
         ).get_closest_camera_to_position(
+            longitude=position.longitude,
+            latitude=position.latitude,
+        )[
+            "distance"
+        ]
+
+    return {
+        "entry_status": old_distance > 10 >= new_distance,
+    }
+
+
+@router.post("/devices/{device_token}/check-report")
+async def check_device_in_report(
+    device_token: str,
+    position: CheckDeviceInReportSchema,
+) -> dict[str, bool]:
+    with session_scope() as session:
+        device = DeviceSQLRepository(session=session).get_device_by_device_token(
+            device_token=device_token,
+        )
+        old_distance = DeviceSQLRepository(
+            session=session
+        ).get_closest_report_to_position(
+            longitude=device["longitude"],
+            latitude=device["latitude"],
+        )[
+            "distance"
+        ]
+        new_distance = DeviceSQLRepository(
+            session=session
+        ).get_closest_report_to_position(
             longitude=position.longitude,
             latitude=position.latitude,
         )[

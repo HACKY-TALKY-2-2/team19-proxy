@@ -80,3 +80,29 @@ class DeviceSQLRepository:
             "name": result[2],
             "distance": result[3],
         }
+
+    def get_closest_report_to_position(self, longitude: float, latitude: float):
+        raw_sql: TextClause = text("""
+            SELECT address,
+                   St_AsText(position),
+                   ST_Distance_Sphere(
+                       Point(:longitude, :latitude),
+                       Point(ST_Y(position), ST_X(position))
+                   ) AS distance
+            FROM reports
+            ORDER BY distance
+            LIMIT 1
+            """)
+        result = self.session.execute(
+            raw_sql,
+            {
+                "longitude": longitude,
+                "latitude": latitude,
+            },
+        ).fetchone()
+        return {
+            "address": result[0],
+            "longitude": float(re.findall(r"[-+]?\d*\.\d+|\d+", result[1])[1]),
+            "latitude": float(re.findall(r"[-+]?\d*\.\d+|\d+", result[1])[0]),
+            "distance": result[3],
+        }

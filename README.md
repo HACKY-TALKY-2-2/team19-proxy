@@ -31,7 +31,7 @@
 ### 기기의 CCTV/신고위치 근처 진입 여부 판단
 
 ## 기능 api
-[notion](https://www.notion.so/README-69584b85cb5b41c4b0a3ef5aa3af0e93?pvs=4#e96e404ccfd0443f8d5884da1efc85e3)
+[notion](https://abaft-red-b93.notion.site/README-69584b85cb5b41c4b0a3ef5aa3af0e93?pvs=4)
 
 ## 인프라 구조
 Client <-> Nginx(HTTP:80) <-> FastAPI Server(:8000) <-> Express Server(:8080)

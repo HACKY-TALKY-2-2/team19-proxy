@@ -10,6 +10,7 @@ python = "^3.10"
 fastapi = {extras = ["all"], version = "^0.104.1"}
 gunicorn = "^21.2.0"
 sqlalchemy = "^2.0.23"
+mysql-connector-python = "^8.2.0"
 
 
 [tool.poetry.group.dev.dependencies]

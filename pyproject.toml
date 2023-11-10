@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = {extras = ["all"], version = "^0.104.1"}
+gunicorn = "^21.2.0"
 
 
 [tool.poetry.group.dev.dependencies]

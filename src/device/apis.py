@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 
 from db import session_scope
 from device.repositories import DeviceSQLRepository
@@ -16,7 +16,7 @@ async def list_devices():
     ]
 
 
-@router.post("/devices")
+@router.post("/devices", status_code=status.HTTP_201_CREATED)
 async def create_device(
     device: CreateDeviceSchema,
 ) -> dict[str, str]:

@@ -2,7 +2,7 @@ from fastapi import APIRouter, status
 
 from db import session_scope
 from device.repositories import DeviceSQLRepository
-from device.schemas import CreateDeviceSchema
+from device.schemas import CreateDeviceSchema, UpdateDevicePositionSchema
 
 router = APIRouter()
 
@@ -24,4 +24,19 @@ async def create_device(
         DeviceSQLRepository(session=session).create_device(
             device_token=device.device_token,
         )
+    return {"detail": "success"}
+
+
+@router.put("/devices/{device_token}/position")
+async def update_device_position(
+    device_token: str,
+    position: UpdateDevicePositionSchema,
+) -> dict[str, str]:
+    with session_scope() as session:
+        DeviceSQLRepository(session=session).update_device_position(
+            device_token=device_token,
+            longitude=position.longitude,
+            latitude=position.latitude,
+        )
+
     return {"detail": "success"}

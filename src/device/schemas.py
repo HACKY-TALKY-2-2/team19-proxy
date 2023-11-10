@@ -8,3 +8,12 @@ class CreateDeviceSchema(BaseModel):
     )
 
     device_token: str
+
+
+class UpdateDevicePositionSchema(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+    )
+
+    longitude: float
+    latitude: float

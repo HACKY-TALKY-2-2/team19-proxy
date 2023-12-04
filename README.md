@@ -1,44 +1,44 @@
-# 역파카 - 강남구 주차 플랫폼
+# 역파카 기기 API & 리버스 프록시 서버
 
-프록시 서버 리포지토리
+채널톡 HACKY-TALKY 챌린저스 2기 해커톤 11조
 
-<aside>
-💡 핵심 기능: 불법 주차 신고 피하기!
-- CCTV 위치 표시, 지점별 신고 개수 표시 → 자주 신고 당하는(하는) 곳을 강조
-- 현재 위치 신고 위험 지역일 경우 사용자에게 알림으로 알려줌
+## Background
 
-## 계기
+> 역파카 프로젝트 전반에 대한 내용은 [Notion](https://www.notion.so/jseoplim/cf74e6ce58e64bb6b494b815fb0c35b4?pvs=4)을 참고
 
-- 강남구청 민원 분석 (역삼역)
-![image](https://github.com/HACKY-TALKY-2-2/team19-api/assets/78073229/e83c9f97-101c-45ff-a9d6-2e19caab231c)
-- 안전교통이 매우 큰 비중을 차지하고 있음.
-- 강남구는 특히 주차 문제로 인해 여러 문제를 안고 있고, 그 중 하나가 불법 주차 문제임. ([link](https://mobile.newsis.com/view.html?ar_id=NISX20230518_0002307371#_PA))
-- 이러한 과정에 발생하는 비의도적으로 불법 주차 신고를 당하는 등의 문제를 해결하고, 불법 주차 장소에 대한 정보를 알리기 위해 고안된 어플
+### Contents
 
-## 기능
-> 배포된 [Swagger](http://parking-api.jseoplim.com/docs)에서 확인 가능
+#### 📌 불법 주정차 위험 영역을 지도 위에 표시하기
 
-### 사용자 기기 등록
+- 사용자가 입력한 특정 위치 주변의 CCTV/신고 위치를 마커로 지도 위에 표시하기
+- 사용자 위치는 현재 위치 혹은 검색한 주소로 입력
 
-### 주소 입력받아 위치 좌표 반환
+#### 📢 불법 주정차 위험 영역에 진입 시 알리기
 
-### 주소 키워드 입력받아 연관된 주소 목록 반환
+- 사용자 주변 10m 이내에 CCTV/신고 위치가 없던 상태에서 10m 이내에 CCTV/신고위치가 존재하는 위치로 이동하면 알리기
 
-### 네 위치 좌표 사각형 내부에 있는 CCTV/신고위치 목록 반환
+### Infra Architecture
 
-### 기기의 현재 위치 좌표 업데이트
+![image](https://github.com/HACKY-TALKY-2-2/team19-proxy/assets/86508420/5b4ac497-bbf1-4ea6-b8ed-f4ae00a7e6e3)
 
-### 기기의 CCTV/신고위치 근처 진입 여부 판단
+### Database Schema
 
-## 기능 api
-[notion](https://abaft-red-b93.notion.site/README-69584b85cb5b41c4b0a3ef5aa3af0e93?pvs=4)
+<img src="https://github.com/HACKY-TALKY-2-2/team19-proxy/assets/86508420/9d3a452e-4a24-415f-be17-ffbee74422ac.png" width="60%">
 
-## 인프라 구조
-Client <-> Nginx(HTTP:80) <-> FastAPI Server(:8000) <-> Express Server(:8080)
+## Features
 
-Client 뒷 단은 모두 한 Amazon EC2 서버 내에 존재
+> 자세한 API Endpoint는 [Notion](https://abaft-red-b93.notion.site/b94dcd77078944c9be84cb7d7f727a28?v=f8fbd9835a1a4cc4a558f10898c1c58f&pvs=4)을 참고
 
-## 기술 스택
+* 기기에 대한 API 요청을 처리하여 응답
+* CCTV, 신고 위치 API를 제공하는 다른 포트의 API 서버에 대한 리버스 프록시 기능 제공
+
+## Technology Stack
+
 * 언어: Python
-* 웹 프레임워크: FastAPI
+* 웹 프레임워크: FastAPI 
 * DBMS: MySQL 8.0
+
+## See More
+
+* [역파카 API 서버](https://github.com/HACKY-TALKY-2-2/team19-api)
+* [역파카 앱](https://github.com/HACKY-TALKY-2-2/team19-app)
